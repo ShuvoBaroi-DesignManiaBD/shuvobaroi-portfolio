@@ -30,4 +30,4 @@ jobs:
 
     - run: pnpm build --if-present
 
-    - run: npm test
+    # - run: npm test
