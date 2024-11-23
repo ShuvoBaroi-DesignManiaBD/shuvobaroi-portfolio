@@ -28,6 +28,6 @@ jobs:
 
     - run: pnpm i
 
-    - run: pnpm build --if-present
-
+    - run: pnpm build
+    
     # - run: npm test
