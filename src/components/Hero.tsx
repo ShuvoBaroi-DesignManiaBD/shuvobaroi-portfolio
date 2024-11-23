@@ -64,7 +64,7 @@ const Hero = () => {
             // className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl"
             className="text-start text-[40px] md:text-5xl lg:text-6xl"
           /> */}
-          <h1 className="text-6xl font-bold">Hi! I'm Shuvo Baroi. {<Typewriter
+          <h1 className="text-6xl font-bold">Hi! I am Shuvo Baroi. {<Typewriter
             baseText="I am specialized in"
             dynamicWords={[
               "MERN Stack.",
