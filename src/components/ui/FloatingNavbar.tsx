@@ -62,7 +62,7 @@ export const FloatingNav = ({
           // change rounded-full to rounded-lg
           // remove dark:border-white/[0.2] dark:bg-black bg-white border-transparent
           // change  pr-2 pl-8 py-2 to px-10 py-5
-          "flex md:min-w-[70vw] lg:min-w-fit fixed z-[5000] top-0 inset-x-0 mx-auto px-10 py-5 items-center justify-between space-x-4",
+          "flex md:min-w-[70vw] md:h-20 lg:min-w-fit fixed z-[5000] top-0 inset-x-0 mx-auto px-10 py-5 items-center justify-between space-x-4",
           className
         )}
         style={{

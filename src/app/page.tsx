@@ -15,6 +15,7 @@ import MyJourney from "@/components/MyJourney";
 import Contact from "@/components/Contact";
 import About from "@/components/About";
 import SectionWrapper from "@/hoc/SectionWrapper";
+import Tech from "@/components/Tech";
 
 // const Contact = dynamic(
 //   () => import("@/components/Contact").then((m) => m.default),
@@ -33,7 +34,8 @@ const Page = () => {
         <SectionWrapper idName="my-journey"><MyJourney /></SectionWrapper>
         <RecentProjects />
         <Clients />
-        <Experience />
+        {/* <Experience /> */}
+        <SectionWrapper idName="tech"><Tech></Tech></SectionWrapper>
         <Approach />
       </div>
       <div className="w-full">

@@ -1,5 +1,8 @@
 "use client";
-import { Html, useProgress } from "@react-three/drei";
+import { useProgress } from "@react-three/drei";
+import dynamic from "next/dynamic";
+
+const Html = dynamic(() => import("@react-three/drei").then((m) => m.Html), { ssr: false });
 
 const CanvasLoader = () => {
   const { progress } = useProgress();

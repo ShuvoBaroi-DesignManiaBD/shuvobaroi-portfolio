@@ -1,13 +1,13 @@
-
+"use client";
 import React, { Suspense, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+// import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import dynamic from "next/dynamic";
 
 // import CanvasLoader from "../Loader";
 
 const CanvasLoader = dynamic(() => import("../Loader").then((m) => m.default), { ssr: false });
-
+const Canvas = dynamic(() => import("@react-three/fiber").then((m) => m.Canvas), { ssr: false });
 const Computers = ({ isMobile }:{ isMobile: boolean}) => {
   const computer = useGLTF("./desktop_pc/scene.gltf");
 
