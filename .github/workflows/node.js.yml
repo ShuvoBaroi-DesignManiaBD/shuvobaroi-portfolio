@@ -13,7 +13,10 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x] # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    env:
+      NEXT_PUBLIC_BASE_API: ${{ secrets.NEXT_PUBLIC_BASE_API }}    
+      NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}    
+      NEXT_ACCESS_KEY: ${{ secrets.NEXT_ACCESS_KEY }} 
     steps:
     - uses: actions/checkout@v2
 
