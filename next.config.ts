@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "**",
+      }
     ],
   },
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "maath"],
