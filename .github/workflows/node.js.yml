@@ -16,7 +16,8 @@ jobs:
     env:
       NEXT_PUBLIC_BASE_API: ${{ secrets.NEXT_PUBLIC_BASE_API }}    
       NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}    
-      NEXT_ACCESS_KEY: ${{ secrets.NEXT_ACCESS_KEY }} 
+      NEXT_ACCESS_KEY: ${{ secrets.NEXT_ACCESS_KEY }}
+       
     steps:
     - uses: actions/checkout@v2
 
@@ -31,7 +32,18 @@ jobs:
 
     - run: pnpm i
 
-    - run: pnpm build
+    - name: Debug Secrets
+      run: echo "NEXT_PUBLIC_BASE_API=${{ secrets.NEXT_PUBLIC_BASE_API }}"
+      shell: bash
+
+    - name: Build
+      run: pnpm build
+      env:
+        NEXT_PUBLIC_BASE_API: ${{ secrets.NEXT_PUBLIC_BASE_API }}
+        NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}
+        NEXT_ACCESS_KEY: ${{ secrets.NEXT_ACCESS_KEY }}
+
+    # - run: pnpm build
     - name: Change Directory
       run: cd /home/shuvobaroi_portfolio/actions-runner/_work/shuvobaroi-portfolio/shuvobaroi-portfolio
     - run: pm2 restart 0 
