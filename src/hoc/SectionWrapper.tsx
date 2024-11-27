@@ -1,27 +1,34 @@
+"use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "framer-motion";
-
 import { styles } from "@/lib/styles";
-import React from "react";
+import React, { ReactNode } from "react";
 import { staggerContainer } from "@/utils/motion";
 
+interface SectionWrapperProps {
+  children: any;
+  idName: string;
+}
 
-const StarWrapper = ({Component, idName}:{Component: React.FC, idName: string}) =>
-  function HOC() {
+const SectionWrapper = ({ children, idName }: SectionWrapperProps) => {
     return (
+      <>
       <motion.section
-        variants={staggerContainer()}
-        initial='hidden'
-        whileInView='show'
+        variants={staggerContainer()} // Ensure this function returns a valid object
+        initial="hidden"
+        whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
-        className={`${styles.padding} mx-auto relative z-0`}
+        className={` mx-auto relative z-0`}
       >
-        <span className='hash-span' id={idName}>
+        <span className="hash-span" id={idName}>
           &nbsp;
         </span>
 
-        <Component />
+        {children}
       </motion.section>
+      </>
     );
-  };
+};
 
-export default StarWrapper;
+
+export default SectionWrapper;

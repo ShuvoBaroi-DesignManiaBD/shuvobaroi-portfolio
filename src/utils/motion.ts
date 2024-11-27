@@ -80,7 +80,7 @@ export const staggerContainer = (staggerChildren=null, delayChildren=null) => {
     hidden: {},
     show: {
       transition: {
-        staggerChildren: staggerChildren,
+        staggerChildren: staggerChildren || 0.2,
         delayChildren: delayChildren || 0,
       },
     },

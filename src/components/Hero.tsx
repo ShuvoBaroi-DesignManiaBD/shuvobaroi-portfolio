@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import { FaLocationArrow } from "react-icons/fa6";
 
 import MagicButton from "./MagicButton";
@@ -6,8 +8,17 @@ import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 import Link from "next/link";
 import Image from "next/image";
 import Typewriter from "./Typewriter";
+import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
+import { HeroSkeleton } from "./skeletons/HeroSkeleton";
+// import { useEffect } from "react";
 
 const Hero = () => {
+  const {data,isFetching} = useGetAPageQuery({pageName:"home"});
+  const heroData = data?.data[0]?.section[0];
+  console.log("data", data?.data, heroData);
+  // useEffect(() => {
+    
+  // },[data])
   return (
     <div className="pb-20 pt-36">
       {/**
@@ -43,29 +54,14 @@ const Hero = () => {
         />
       </div>
 
-      <div className="flex justify-between relative my-20 z-10">
+      {!data ? <HeroSkeleton></HeroSkeleton>:<div className="flex justify-between relative my-20 z-10">
         <div className="md:max-w-[60%] flex flex-col items-start justify-center text-start space-y-6">
           <p className="uppercase tracking-widest text-xs text-start text-blue-100 max-w-80">
-            Full stack Developer
+            {heroData?.sub_heading || "Full Stack Web Developer"}
           </p>
 
-          {/**
-           *  Link: https://ui.aceternity.com/components/text-generate-effect
-           *
-           *  change md:text-6xl, add more responsive code
-           */}
-          {/* <TextGenerateEffect
-            words="Transforming Concepts into Seamless User Experiences"
-            className="text-center text-[40px] md:text-5xl lg:text-6xl"
-          /> */}
-
-          {/* <TextGenerateEffect
-            words="Hi! I'm Shuvo Baroi."
-            // className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl"
-            className="text-start text-[40px] md:text-5xl lg:text-6xl"
-          /> */}
-          <h1 className="text-6xl font-bold">Hi! I am Shuvo Baroi. {<Typewriter
-            baseText="I am specialized in"
+          <h1 className="text-6xl font-bold">{heroData?.heading || "Hi! I'm Shuvo Baroi."} {<Typewriter
+            baseText={heroData?.description[0]?.children[0]?.text || "I am specialized in"}
             dynamicWords={[
               "MERN Stack.",
               "Frontend Development.",
@@ -82,17 +78,17 @@ const Hero = () => {
           
           {/* <p>A Next.js Developer based in Bangladesh.</p> */}
           <div className="flex gap-3">
-            <Link href="#about">
+            <Link href={heroData ? `/#${heroData?.buttons[0]?.link}` : `/#`}>
               <MagicButton
-                title="Show my work"
+                title={heroData ? heroData?.buttons[0].text : "Download My Resume"}
                 icon={<FaLocationArrow />}
                 position="right"
                 otherClasses="bg-transparent !text-base"
               />
             </Link>
-            <Link href="#projects">
+            <Link href={heroData ? `/#${heroData?.buttons[1]?.link}` : "#"}>
               <MagicButton
-                title="Show my work"
+                title={heroData ? heroData?.buttons[1]?.text : "Contact me"}
                 icon={<FaLocationArrow />}
                 position="right"
               />
@@ -106,7 +102,8 @@ const Hero = () => {
           height={450}
           className=""
         />
-      </div>
+      </div>}
+      
     </div>
   );
 };

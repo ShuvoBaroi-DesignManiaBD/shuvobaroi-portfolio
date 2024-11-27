@@ -101,5 +101,11 @@
       opacity: 0;
     }
   }
+
+  .green-pink-gradient {
+    background: "#5577ff";
+    background: linear-gradient(90.13deg, #5577ff 1.9%, #25367a 97.5%);
+    background: -webkit-linear-gradient(-90.13deg, #5577ff 1.9%, #25367a 97.5%);
+  }
   
 }

@@ -2,7 +2,6 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { SectionWrapper } from "../hoc";
 import { styles } from "@/lib/styles";
 // import { EarthCanvas } from "./canvas";
 import { slideIn } from "@/utils/motion";
@@ -11,6 +10,7 @@ import { StarsCanvas } from "./canvas";
 import { sendEmail } from "@/app/actions";
 import MagicButton from "./MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
+
 
 const EarthCanvas = dynamic(
   () => import("./canvas").then((m) => m.EarthCanvas),
@@ -69,6 +69,7 @@ const Contact = () => {
   };
 
   return (
+    <div>
     <div className="w-full pb-20">
       <div className="max-w-screen-xl mx-auto xl:mt-12 flex xl:flex-row flex-col-reverse gap-0 overflow-hidden">
         <motion.div
@@ -94,7 +95,7 @@ const Contact = () => {
                 type="text"
                 name="name"
                 value={name}
-                onChange={(e)=>setName(e.currentTarget.value)}
+                onChange={(e) => setName(e.currentTarget.value)}
                 placeholder="What's your good name?"
                 className="bg-tertiary py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
               />
@@ -105,7 +106,7 @@ const Contact = () => {
                 type="email"
                 name="email"
                 value={email}
-                onChange={(e)=>setEmail(e.currentTarget.value)}
+                onChange={(e) => setEmail(e.currentTarget.value)}
                 placeholder="What's your email address?"
                 className="bg-tertiary py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
               />
@@ -116,7 +117,7 @@ const Contact = () => {
                 rows={7}
                 name="message"
                 value={message}
-                onChange={(e)=>setMessage(e.currentTarget.value)}
+                onChange={(e) => setMessage(e.currentTarget.value)}
                 placeholder="What you want to say?"
                 className="bg-tertiary py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
               />
@@ -129,8 +130,7 @@ const Contact = () => {
               icon={<FaLocationArrow />}
               // className="bg-purple py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary"
               title={loading ? "Sending..." : "Send"}
-            >
-            </MagicButton>
+            ></MagicButton>
           </form>
         </motion.div>
 
@@ -148,9 +148,10 @@ const Contact = () => {
       </div>
       <StarsCanvas></StarsCanvas>
     </div>
+    </div>
   );
 };
 
 // export default Contact;
 
-export default SectionWrapper({ Component: Contact, idName: "contact" });
+export default Contact;
