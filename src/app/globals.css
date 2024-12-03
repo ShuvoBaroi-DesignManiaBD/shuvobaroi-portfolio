@@ -34,6 +34,16 @@
     --ring: 240 10% 3.9%;
 
     --radius: 0.5rem;
+
+    --chart-1: 12 76% 61%;
+
+    --chart-2: 173 58% 39%;
+
+    --chart-3: 197 37% 24%;
+
+    --chart-4: 43 74% 66%;
+
+    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -64,12 +74,17 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border !scroll-smooth;
+    @apply border-border scroll-smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -83,6 +98,8 @@
   .heading {
     @apply font-bold text-4xl md:text-5xl text-center;
   }
+
+
   /* .typewriter {
     display: inline-flex;
     align-items: center;
@@ -94,6 +111,26 @@
     width: 0px;
     background-color: currentColor;
     animation: blink 1s step-end infinite;
+  }
+  
+  .gradient {
+    background: hsla(228, 51%, 47%, 1);
+    background: radial-gradient(
+      circle,
+      hsla(228, 51%, 47%, 1) 0%,
+      hsla(228, 53%, 13%, 1) 100%
+    );
+    background: -moz-radial-gradient(
+      circle,
+      hsla(228, 51%, 47%, 1) 0%,
+      hsla(228, 53%, 13%, 1) 100%
+    );
+    background: -webkit-radial-gradient(
+      circle,
+      hsla(228, 51%, 47%, 1) 0%,
+      hsla(228, 53%, 13%, 1) 100%
+    );
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#3A52B5", endColorstr="#0F1631", GradientType=1 );
   }
   
   @keyframes blink {
@@ -108,4 +145,13 @@
     background: -webkit-linear-gradient(-90.13deg, #5577ff 1.9%, #25367a 97.5%);
   }
   
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

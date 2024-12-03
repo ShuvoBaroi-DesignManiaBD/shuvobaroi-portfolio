@@ -4,14 +4,25 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import ReduxStoreProvider from "@/lib/ReduxStoreProvider";
+import { getSiteInfo } from "./actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Shuvo's Portfolio",
-  description: "Modern & Minimal JS Mastery Portfolio",
-};
+export const metadata: Metadata = {};
 
+function injectSiteInfo() {
+  try{
+    getSiteInfo().then((data) => {
+      const siteInfo = data;
+      metadata.title = siteInfo.title;
+      metadata.description = siteInfo.description;
+    });
+  }catch(e){
+    console.log(e)
+  }
+}
+
+injectSiteInfo();
 export default function RootLayout({
   children,
 }: Readonly<{

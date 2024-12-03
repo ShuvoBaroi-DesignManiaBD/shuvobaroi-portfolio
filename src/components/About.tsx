@@ -60,12 +60,15 @@ export const ServiceCard = ({ index, content = null }: any) => {
 };
 
 
-const About = () => {
-  const {data,isFetching} = useGetAPageQuery({pageName:"home"});
-  const aboutData = data?.data[0]?.section[1];
+const About = ({pageData}:any) => {
+  // const {data,isFetching} = useGetAPageQuery({pageName:"home"});
+  
+  const aboutData = pageData[0]?.section[1] || {};
+  console.log(aboutData);
+  
   return (
     <div>
-      {!isFetching ? <>
+      {aboutData ? <>
       
       <motion.div
         variants={textVariant({ delay: 0.5 })}

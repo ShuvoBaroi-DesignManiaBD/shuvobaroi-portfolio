@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import {
   motion,
@@ -9,19 +10,28 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Logo from "./shared/Logo";
+import envConfig from "@/config";
 
 export const FloatingNav = ({
-  navItems,
+  
   className,
+  siteInfo,
 }: {
-  navItems: {
-    name: string;
-    link: string;
-    icon?: JSX.Element;
-  }[];
+  // navItems: {
+  //   name: string;
+  //   link: string;
+  //   icon?: JSX.Element;
+  // }[];
   className?: string;
+  siteInfo:any
 }) => {
+  const globalData = siteInfo;
+  const headerData = globalData?.data?.global_sections[0];
+
   const { scrollYProgress } = useScroll();
+    
+    console.log("Global Data", globalData, headerData, );
+    
 
   // set true for the initial state so that nav bar is visible in the hero section
   const [visible, setVisible] = useState(true);
@@ -73,20 +83,20 @@ export const FloatingNav = ({
         }}
       >
         <div className="max-w-screen-xl mx-auto w-full flex justify-between">
-        <Logo />
+        <Link href={"/"}><Logo src={envConfig.baseApi?.split('/api')[0]+headerData?.logo?.url ||"/shuvo-baroi-logo.webp"}/></Link>
         <div className="flex items-center space-x-5">
-        {navItems.map((navItem: any, idx: number) => (
+        {headerData?.menu?.page?.map((navItem: any, idx: number) => (
           <Link
             key={`link=${idx}`}
-            href={navItem.link}
+            href={`/${navItem?.slug}` || "#"}
             className={cn(
               "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}
           >
-            <span className="block sm:hidden">{navItem.icon}</span>
+            {/* <span className="block sm:hidden">{navItem.icon}</span> */}
             {/* add !cursor-pointer */}
             {/* remove hidden sm:block for the mobile responsive */}
-            <span className=" text-base !cursor-pointer">{navItem.name}</span>
+            <span className=" text-base !cursor-pointer">{navItem.title}</span>
           </Link>
         ))}
         </div>

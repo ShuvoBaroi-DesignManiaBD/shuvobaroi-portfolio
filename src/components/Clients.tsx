@@ -1,19 +1,30 @@
-// "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
 import React from "react";
 
-import { companies, testimonials } from "@/data";
+import { companies } from "@/data";
 import { InfiniteMovingCards } from "./ui/InfiniteCards";
+import { useGetTestimonialsQuery } from "@/redux/features/testimonials/testimonialApi";
+import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
 
-const Clients = () => {
+const Clients = ({pageData}:any) => {
+  const { data, isFetching: testimonialFetching } = useGetTestimonialsQuery({
+    page: "1",
+    pageSize: "6",
+  });
+  const testimonials = data?.data || [];
+
+  // const {data:pageData,isFetching} = useGetAPageQuery({pageName:"home"});
+  const sectionInfo = pageData[0]?.section[4];
   return (
     <section id="testimonials" className="py-20">
-      <h1 className="heading">
-        Kind words from
-        <span className="text-purple"> satisfied clients</span>
-      </h1>
+      <h2 className="heading">
+        {sectionInfo?.heading}
+        <span className="text-purple"> {sectionInfo?.heading_secondaryColor}</span>
+      </h2>
 
-      <div className="flex flex-col items-center max-lg:mt-10">
+      <div className="flex flex-col items-center mt-10">
         <div
           // remove bg-white dark:bg-black dark:bg-grid-white/[0.05], h-[40rem] to 30rem , md:h-[30rem] are for the responsive design
           className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden"

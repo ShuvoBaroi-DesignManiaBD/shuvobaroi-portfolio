@@ -1,33 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaLocationArrow } from "react-icons/fa6";
 
 import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
 import Image from "next/image";
+import envConfig from "@/config";
+import Link from "next/link";
+import { Key } from "react";
 
-const Footer = () => {
+const Footer = ({siteInfo}:{siteInfo:any}) => {
+  const footerData = siteInfo?.data?.global_sections[1];
+  console.log(footerData?.heading?.split("your").reduce((curr: string,acc: any[]) => curr === "your" ? acc.join("<span className='text-purple'>your</span>") : acc + curr, ""));
+  
   return (
-    <footer className="max-w-screen-xl mx-auto pt-20 pb-10" id="contact">
+    <footer className="max-w-screen-xl mx-auto pt-20 pb-10 z-0 overflow-hidden relative" id="contact">
       {/* background grid */}
-      <div className="w-full absolute left-0 -bottom-72 min-h-96">
-        <img
+      <div className="w-full absolute left-0 bottom-0 h-full  z-0">
+        <Image
+          width={600}
+          height={600}
           src="/footer-grid.svg"
           alt="grid"
-          className="w-full h-full opacity-50 "
+          className="w-full opacity-50 "
         />
       </div>
 
       <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw]">
+        <h2 className="heading lg:max-w-[45vw]">
+          {/* {footerData?.heading?.split(" ").reduce((curr: string,acc: string) => curr === "your" ? acc.join(<span className='text-purple'>your</span>) : acc + ` ${curr}`, "")} */}
           Ready to take <span className="text-purple">your</span> digital
           presence to the next level?
-        </h1>
+        </h2>
         <p className="text-white-200 md:mt-10 my-5 text-center">
-          Reach out to me today and let&apos;s discuss how I can help you
-          achieve your goals.
+        {footerData?.description || "Contact me today to learn more about my services and how I can help you take your digital presence to the next level."}
         </p>
-        <a href="mailto:contact@jsmastery.pro">
+        <a href={footerData?.btn_link || "mailto:contact.shuvobaroi@gmail.com"}>
           <MagicButton
-            title="Let's get in touch"
+            title={footerData?.btn_text || "Let's get in touch"}
             icon={<FaLocationArrow />}
             position="right"
           />
@@ -39,12 +48,14 @@ const Footer = () => {
         </p>
 
         <div className="flex items-center md:gap-3 gap-6">
-          {socialMedia.map((info) => (
+          {footerData.social_media.map((info: { name: Key | null | undefined; link: any; logo: { url: string | number; }; }) => (
             <div
-              key={info.id}
+              key={info.name}
               className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
             >
-              <Image src={info.img} alt="icons" width={20} height={20} />
+              <Link href={info?.link || "#"}>
+              <Image src={envConfig?.baseApi?.split('/api')[0] + info.logo?.url} alt="icons" width={20} height={20} />
+              </Link>
             </div>
           ))}
         </div>

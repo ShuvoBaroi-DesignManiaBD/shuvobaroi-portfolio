@@ -10,22 +10,24 @@ import { StarsCanvas } from "./canvas";
 import { sendEmail } from "@/app/actions";
 import MagicButton from "./MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
+import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
 
 
 const EarthCanvas = dynamic(
   () => import("./canvas").then((m) => m.EarthCanvas),
   { ssr: false }
 );
-const Contact = () => {
-  const formRef = useRef();
+const Contact = ({pageData}:any) => {
+  const contactData = pageData[0]?.section[6];
+  // const formRef = useRef();
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: any) => {
@@ -42,7 +44,7 @@ const Contact = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setLoading(true);
-    console.log(e.target?.name?.value, form);
+    console.log(e.target?.name?.value, e.target);
 
     sendEmail({
       clientMail: e.target?.email?.value,
@@ -69,33 +71,28 @@ const Contact = () => {
   };
 
   return (
-    <div>
-    <div className="w-full pb-20">
-      <div className="max-w-screen-xl mx-auto xl:mt-12 flex xl:flex-row flex-col-reverse gap-0 overflow-hidden">
+    <div className="w-full pb-20 !z-10">
+      <div className="max-w-screen-xl mx-auto xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden">
+        <div className="w-full md:w-3/6 gradient p-8 pr-12 rounded-2xl">
         <motion.div
-          variants={slideIn({
-            direction: "left",
-            type: "tween",
-            delay: 0.2,
-            duration: 1,
-          })}
-          className="w-full md:w-3/6 bg-black-100 pr-12 rounded-2xl"
+          className=""
         >
-          <p className={styles.sectionSubText}>Get in touch</p>
-          <h3 className={styles.sectionHeadText}>Contact.</h3>
+          <p className={styles.sectionSubText}>{contactData?.sub_heading || "Get in touch"}</p>
+          <h3 className={styles.sectionHeadText}>{contactData?.heading || "Contact."}</h3>
 
           <form
-            ref={formRef}
+            // ref={formRef}
             onSubmit={handleSubmit} // Correctly binding the submit handler
-            className="mt-12 flex flex-col gap-8"
+            className="mt-12 flex flex-col gap-8 z-50"
           >
             <label className="flex flex-col">
               <span className="text-white font-medium mb-4">Your Name</span>
               <input
                 type="text"
                 name="name"
-                value={name}
-                onChange={(e) => setName(e.currentTarget.value)}
+                required
+                // value={name}
+                // onChange={(e) => setName(e.currentTarget.value)}
                 placeholder="What's your good name?"
                 className="bg-tertiary py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
               />
@@ -105,34 +102,37 @@ const Contact = () => {
               <input
                 type="email"
                 name="email"
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
+                required
+                // value={email}
+                // onChange={(e) => setEmail(e.currentTarget.value)}
                 placeholder="What's your email address?"
                 className="bg-tertiary py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
               />
+              
             </label>
             <label className="flex flex-col">
-              <span className="text-white font-medium mb-4">Your Message</span>
+              <span className="text-white font-medium">Your Message</span>
+            </label>
               <textarea
                 rows={7}
                 name="message"
-                value={message}
-                onChange={(e) => setMessage(e.currentTarget.value)}
+                required
+                // value={message}
+                // onChange={(e) => setMessage(e.currentTarget.value)}
                 placeholder="What you want to say?"
-                className="bg-tertiary py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
+                className="bg-tertiary -mt-3 py-4 px-6 placeholder:text-white/40 text-white rounded-lg outline-none border-none font-medium"
               />
-            </label>
-
             <MagicButton
               htmlType="submit"
               position="right"
               otherClasses="bg-transparent !text-base"
-              icon={<FaLocationArrow />}
+              icon={!loading && <FaLocationArrow />}
               // className="bg-purple py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary"
-              title={loading ? "Sending..." : "Send"}
+              title={loading ? "Sending ..." : "Send"}
             ></MagicButton>
           </form>
         </motion.div>
+        </div>
 
         <motion.div
           variants={slideIn({
@@ -147,7 +147,6 @@ const Contact = () => {
         </motion.div>
       </div>
       <StarsCanvas></StarsCanvas>
-    </div>
     </div>
   );
 };

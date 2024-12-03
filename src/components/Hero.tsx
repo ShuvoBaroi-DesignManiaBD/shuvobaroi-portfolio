@@ -12,10 +12,10 @@ import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
 import { HeroSkeleton } from "./skeletons/HeroSkeleton";
 // import { useEffect } from "react";
 
-const Hero = () => {
-  const {data,isFetching} = useGetAPageQuery({pageName:"home"});
-  const heroData = data?.data[0]?.section[0];
-  console.log("data", data?.data, heroData);
+function Hero ({pageData}:any) {
+  // const {data,isFetching} = useGetAPageQuery({pageName:"home"});
+  const heroData = pageData[0]?.section[0] || {};
+  console.log("data", heroData);
   // useEffect(() => {
     
   // },[data])
@@ -54,7 +54,7 @@ const Hero = () => {
         />
       </div>
 
-      {!data ? <HeroSkeleton></HeroSkeleton>:<div className="flex justify-between relative my-20 z-10">
+      {!pageData ? <HeroSkeleton></HeroSkeleton>:<div className="flex justify-between relative my-20 z-10">
         <div className="md:max-w-[60%] flex flex-col items-start justify-center text-start space-y-6">
           <p className="uppercase tracking-widest text-xs text-start text-blue-100 max-w-80">
             {heroData?.sub_heading || "Full Stack Web Developer"}

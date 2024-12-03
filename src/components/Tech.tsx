@@ -4,7 +4,10 @@ import React from "react";
 import BallCanvas from "./canvas/Ball";
 
 
-const Tech = () => {
+const Tech = ({pageData}:any) => {
+  // const {data,isFetching} = useGetAPageQuery({pageName:"home"});
+  
+  const techData = pageData[0]?.section[5] || {};
   return (
     <div className="pb-20 w-full space-y-20">
       <h2 className="heading">

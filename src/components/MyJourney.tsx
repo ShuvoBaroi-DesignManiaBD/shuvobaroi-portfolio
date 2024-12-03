@@ -11,14 +11,11 @@ import "react-vertical-timeline-component/style.min.css";
 
 import { textVariant } from "../utils/motion";
 import { styles } from "@/lib/styles";
-import { experiences } from "@/constants";
 import Image from "next/image";
-import SectionWrapper from "@/hoc/SectionWrapper";
 import dynamic from "next/dynamic";
 import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
 import envConfig from "@/config";
-import Link from "next/link";
-import { generateUUID } from "three/src/math/MathUtils.js";
+import { formatDate, generateHTML, genrateMainURL } from "@/utils/shared";
 
 const VerticalTimeline = dynamic(() => import("react-vertical-timeline-component").then((m) => m.VerticalTimeline), {
   ssr: true,
@@ -27,72 +24,6 @@ const VerticalTimeline = dynamic(() => import("react-vertical-timeline-component
 const VerticalTimelineElement = dynamic(() => import("react-vertical-timeline-component").then((m) => m.VerticalTimelineElement), {
   ssr: true,
 })
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const month = date.toLocaleString("default", { month: "long" });
-  const year = date.getFullYear();
-
-  // Add the ordinal suffix to the day
-  const ordinalSuffix = (n) => {
-    if (n > 3 && n < 21) return "th"; // 11th to 20th
-    switch (n % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  return `${day}${ordinalSuffix(day)} ${month}, ${year}`;
-}
-
-function generateHTML(description) {
-  return description.map((item) => {
-    if (item.type === "paragraph") {
-      const paragraphContent = item.children.map((child, index) => {
-        if (child.type === "text") {
-          return <span key={index}>{child.text}</span>;
-        } else if (child.type === "link") {
-          const linkText = child.children.map((linkChild, linkIndex) => {
-            if (linkChild.bold && linkChild.underline) {
-              return (
-                <strong key={linkIndex}>
-                  <u>{linkChild.text}</u>
-                </strong>
-              );
-            } else if (linkChild.bold) {
-              return <strong key={linkIndex}>{linkChild.text}</strong>;
-            } else if (linkChild.underline) {
-              return <u key={linkIndex}>{linkChild.text}</u>;
-            }
-            return linkChild.text;
-          });
-
-          return (
-            <Link key={index} href={child.url} target="_blank" rel="noopener noreferrer" className="text-purple">
-              {linkText}
-            </Link>
-          );
-        }
-        return null;
-      });
-
-      return (
-        <p key={item.id}>
-          {paragraphContent}
-          <br />
-        </p>
-      );
-    }
-    return null;
-  });
-}
 
 
 const Experience = ({ experience }: any) => {
@@ -113,7 +44,7 @@ const Experience = ({ experience }: any) => {
           <Image
             width={50}
             height={50}
-            src={`${envConfig.baseApi?.split("/api")[0]}${experience.logo.url}` || "/src/assets/tech/reactjs.png"}
+            src={`${genrateMainURL(experience.logo.url)}` || "/src/assets/tech/reactjs.png"}
             alt={experience.company}
             className="w-[60%] h-[60%] object-contain"
           />
@@ -145,9 +76,8 @@ const Experience = ({ experience }: any) => {
   );
 };
 
-const MyJourney = () => {
-  const {data,isFetching} = useGetAPageQuery({pageName:"home"});
-  const journeyData = data?.data[0]?.section[2];
+const MyJourney = ({pageData}:any) => {
+  const journeyData = pageData[0]?.section[2];
   return (<div className="py-32">
       <motion.div variants={textVariant({ delay: 0.5 })}>
         <p className={`${styles.sectionSubText} text-center`}>
@@ -160,7 +90,7 @@ const MyJourney = () => {
 
       <div className="mt-20 flex flex-col">
         <VerticalTimeline>
-          {journeyData?.experience?.experience_item?.map((experience, index) => (
+          {journeyData?.experience?.experience_item?.map((experience: any, index: any) => (
             <Experience key={`experience-${index}`} experience={experience} />
           ))}
         </VerticalTimeline>

@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+// import { Canvas } from "@react-three/fiber";
 import {
   Decal,
   Float,
@@ -15,7 +15,7 @@ import dynamic from "next/dynamic";
 
 // const CanvasLoader = dynamic(() => import("../Loader").then((m) => m.default), { ssr: false });
 
-// const Canvas = dynamic(() => import("@react-three/fiber").then((m) => m.Canvas), { ssr: false });
+const Canvas = dynamic(() => import("@react-three/fiber").then((m) => m.Canvas), { ssr: false });
 const Ball = (props: any) => {
   // Ensure `props.imgUrl` is a valid string and not an object
   const imageUrl = typeof props.imgUrl === 'string' ? props.imgUrl : '';
