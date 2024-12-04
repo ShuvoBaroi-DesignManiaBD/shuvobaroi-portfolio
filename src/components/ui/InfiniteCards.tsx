@@ -63,11 +63,11 @@ export const InfiniteMovingCards = ({
   const getSpeed = () => {
     if (containerRef.current) {
       if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "10s");
-      } else if (speed === "normal") {
         containerRef.current.style.setProperty("--animation-duration", "20s");
+      } else if (speed === "normal") {
+        containerRef.current.style.setProperty("--animation-duration", "40s");
       } else {
-        containerRef.current.style.setProperty("--animation-duration", "30s");
+        containerRef.current.style.setProperty("--animation-duration", "80s");
       }
     }
   };
@@ -93,7 +93,7 @@ export const InfiniteMovingCards = ({
           <li
             //   change md:w-[450px] to md:w-[60vw] , px-8 py-6 to p-16, border-slate-700 to border-slate-800
             className={`relative rounded-2xl border border-b-0
-             flex-shrink-0 border-slate-800 p-5 md:p-16 w-[33vw] ${idx === items?.length -1 ? "!max-w-full !w-full" : "md:max-w-[40vw]"}`}
+             flex-shrink-0 border-slate-800 p-5 md:p-16 w-[33vw] max-w-[40vw] `}
             style={{
               //   background:
               //     "linear-gradient(180deg, var(--slate-800), var(--slate-900)", //remove this one

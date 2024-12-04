@@ -83,7 +83,7 @@ export const FloatingNav = ({
         }}
       >
         <div className="max-w-screen-xl mx-auto w-full flex justify-between">
-        <Link href={"/"}><Logo src={envConfig.baseApi?.split('/api')[0]+headerData?.logo?.url ||"/shuvo-baroi-logo.webp"}/></Link>
+        <Link href={"/"}><Logo src={envConfig.baseApi?.split('/api')[0]+(headerData ? headerData?.logo?.url:"") ||"/shuvo-baroi-logo.webp"}/></Link>
         <div className="flex items-center space-x-5">
         {headerData?.menu?.page?.map((navItem: any, idx: number) => (
           <Link

@@ -112,7 +112,7 @@ const RecentProjects = ({ pageData:content }: { pageData: any }) => {
               </div>
             </div>
             {/* </ModalTrigger> */}
-            <ModalBody className="md:max-w-[70vw] max-h-[85vh] h-full flex items-centercontent-center">
+            <ModalBody className="md:max-w-[70vw] max-h-[85vh] overflow-hidden h-full flex items-centercontent-center">
               <ModalContent className="max-h-content !overflow-hidden">
                 <div
                   className="lg:min-h-[32.5rem] h-full flex items-center gap-10 justify-between rounded-lg "
