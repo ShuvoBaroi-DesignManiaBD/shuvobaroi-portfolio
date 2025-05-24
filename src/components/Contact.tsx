@@ -18,7 +18,7 @@ const EarthCanvas = dynamic(
   { ssr: false }
 );
 const Contact = ({pageData}:any) => {
-  const contactData = pageData[0]?.section[6];
+  const contactData = pageData[0]?.section.find((item:any)=>item.section_name?.includes("Contact") && item);
   // const formRef = useRef();
   const [form, setForm] = useState({
     name: "",

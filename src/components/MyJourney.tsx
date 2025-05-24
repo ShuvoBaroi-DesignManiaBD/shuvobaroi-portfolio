@@ -13,23 +13,32 @@ import { textVariant } from "../utils/motion";
 import { styles } from "@/lib/styles";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
-import envConfig from "@/config";
+// import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
+// import envConfig from "@/config";
 import { formatDate, generateHTML, genrateMainURL } from "@/utils/shared";
 
-const VerticalTimeline = dynamic(() => import("react-vertical-timeline-component").then((m) => m.VerticalTimeline), {
-  ssr: true,
-});
+const VerticalTimeline = dynamic(
+  () =>
+    import("react-vertical-timeline-component").then((m) => m.VerticalTimeline),
+  {
+    ssr: true,
+  }
+);
 
-const VerticalTimelineElement = dynamic(() => import("react-vertical-timeline-component").then((m) => m.VerticalTimelineElement), {
-  ssr: true,
-})
-
+const VerticalTimelineElement = dynamic(
+  () =>
+    import("react-vertical-timeline-component").then(
+      (m) => m.VerticalTimelineElement
+    ),
+  {
+    ssr: true,
+  }
+);
 
 const Experience = ({ experience }: any) => {
   const paragraphs = generateHTML(experience.description);
   console.log(experience, paragraphs);
-  
+
   return (
     <VerticalTimelineElement
       contentStyle={{
@@ -37,14 +46,19 @@ const Experience = ({ experience }: any) => {
         color: "#fff",
       }}
       contentArrowStyle={{ borderRight: "7px solid  #232631" }}
-      date={`${experience?.from_date ? formatDate(experience?.from_date)+" - " : ""} ${experience?.to_date ? formatDate(experience?.to_date) : "Present"}`}
+      date={`${
+        experience?.from_date ? formatDate(experience?.from_date) + " - " : ""
+      } ${experience?.to_date ? formatDate(experience?.to_date) : "Present"}`}
       iconStyle={{ backgroundColor: "#0f1633" }}
       icon={
         <div className="flex justify-center items-center w-full h-full">
           <Image
             width={50}
             height={50}
-            src={`${genrateMainURL(experience.logo.url)}` || "/src/assets/tech/reactjs.png"}
+            src={
+              `${genrateMainURL(experience.logo.url)}` ||
+              "/src/assets/tech/reactjs.png"
+            }
             alt={experience.company}
             className="w-[60%] h-[60%] object-contain"
           />
@@ -76,9 +90,20 @@ const Experience = ({ experience }: any) => {
   );
 };
 
-const MyJourney = ({pageData}:any) => {
-  const journeyData = pageData[0]?.section[2];
-  return (<div className="py-32">
+const MyJourney = ({ pageData }: any) => {
+  const journeyData = pageData[0]?.section.find(
+    (item: any) => item.section_name?.includes("Work") && item
+  );
+  console.log(
+    "journeyData",
+    journeyData,
+    pageData[0]?.section,
+    journeyData?.sub_heading,
+    journeyData?.heading
+  );
+
+  return (
+    <div className="py-16 sm:py-24 md:py-32 w-full">
       <motion.div variants={textVariant({ delay: 0.5 })}>
         <p className={`${styles.sectionSubText} text-center`}>
           {journeyData?.sub_heading || "What I have done so far"}
@@ -88,11 +113,14 @@ const MyJourney = ({pageData}:any) => {
         </h2>
       </motion.div>
 
-      <div className="mt-20 flex flex-col">
+      {/* Responsive timeline container */}
+      <div className="mt-10 sm:mt-20 flex flex-col w-full overflow-x-auto px-1 sm:px-0">
         <VerticalTimeline>
-          {journeyData?.experience?.experience_item?.map((experience: any, index: any) => (
-            <Experience key={`experience-${index}`} experience={experience} />
-          ))}
+          {journeyData?.experience?.experience_item?.map(
+            (experience: any, index: any) => (
+              <Experience key={`experience-${index}`} experience={experience} />
+            )
+          )}
         </VerticalTimeline>
       </div>
     </div>

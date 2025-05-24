@@ -26,29 +26,36 @@ async function Page() {
   const pageData = await getPageInfo({ pageName: "Home" });
   const siteInfo = await getSiteInfo();
   console.log(pageData);
-  
+
   // const collectSectionData = async (sectionName: string) => await (data as any).data[0].section.find((section: { section_name: string; }) => section.section_name === sectionName);
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
+    <main className="relative bg-black-100 flex flex-col items-center justify-center overflow-hidden mx-auto px-3 sm:px-5 md:px-10 lg:px-16 w-full min-h-screen">
+      {/* Responsive container for all sections */}
       <div className="max-w-screen-xl w-full">
-        <FloatingNav siteInfo={siteInfo}/>
-        <Hero pageData={pageData}/>
-        <SectionWrapper idName="about"><About pageData={pageData}/></SectionWrapper>
+        <FloatingNav siteInfo={siteInfo} />
+        <Hero pageData={pageData} />
+        <SectionWrapper idName="about">
+          <About pageData={pageData} />
+        </SectionWrapper>
         {/* <Grid /> */}
-        <SectionWrapper idName="my-journey"><MyJourney pageData={pageData}/></SectionWrapper>
-        <RecentProjects pageData={pageData}/>
-        <Clients pageData={pageData}/>
+        <SectionWrapper idName="my-journey">
+          <MyJourney pageData={pageData} />
+        </SectionWrapper>
+        <RecentProjects pageData={pageData} />
+        <Clients pageData={pageData} />
         {/* <Experience /> */}
         {/* <SectionWrapper idName="tech"><Tech></Tech></SectionWrapper> */}
         <Tech pageData={pageData}></Tech>
-        <Approach pageData={pageData}/>
+        <Approach pageData={pageData} />
       </div>
       <div className="w-full">
-        <SectionWrapper idName="contact"><Contact pageData={pageData}/></SectionWrapper>
-        <Footer siteInfo={siteInfo}/>
+        <SectionWrapper idName="contact">
+          <Contact pageData={pageData} />
+        </SectionWrapper>
+        <Footer siteInfo={siteInfo} />
       </div>
     </main>
   );
-};
+}
 
 export default Page;

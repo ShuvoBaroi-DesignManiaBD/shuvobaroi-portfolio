@@ -13,9 +13,10 @@ export const InfiniteMovingCards = ({
   className,
 }: {
   items: {
-    quote: string;
-    name: string;
-    title: string;
+    testimony: string;
+    client_photo: { url: string };
+    client_name: string;
+    role?: string;
   }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
@@ -75,35 +76,29 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        // max-w-7xl to w-screen
-        "w-[133vw] h-full scroller relative z-20 overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        // Responsive: grid for mobile, flex for larger screens
+        "w-full h-full scroller relative z-20 overflow-x-auto overflow-y-visible",
         className
       )}
     >
+      {/* Mobile: 2-column grid, Desktop: horizontal scroll */}
       <ul
         ref={scrollerRef}
         className={cn(
-          // change gap-16
-          " flex flex-nowrap min-w-full shrink-0 gap-10 py-4",
+          // Use grid for mobile, flex for md+
+          "grid grid-cols-2 gap-4 sm:flex sm:flex-nowrap sm:min-w-full sm:shrink-0 sm:gap-10 py-4",
           start && "animate-scroll ",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
         {items.map((item, idx) => (
           <li
-            //   change md:w-[450px] to md:w-[60vw] , px-8 py-6 to p-16, border-slate-700 to border-slate-800
-            className={`relative rounded-2xl border border-b-0
-             flex-shrink-0 border-slate-800 p-5 md:p-16 w-[33vw] max-w-[40vw] `}
+            className={`relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-800 p-3 sm:p-5 md:p-8 w-full sm:w-[60vw] md:w-[33vw] max-w-full sm:max-w-[40vw] bg-gradient-to-b from-[#04071d] to-[#0c0e23]`}
             style={{
-              //   background:
-              //     "linear-gradient(180deg, var(--slate-800), var(--slate-900)", //remove this one
-              //   add these two
-              //   you can generate the color from here https://cssgradient.io/
               background: "rgb(4,7,29)",
               backgroundColor:
                 "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
             }}
-            // change to idx cuz we have the same name
             key={idx}
           >
             <blockquote>
@@ -111,24 +106,32 @@ export const InfiniteMovingCards = ({
                 aria-hidden="true"
                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
               ></div>
-              {/* change text color, text-lg */}
-              <span className=" relative z-20 text-sm md:text-lg line-clamp-6 text-white font-normal">
+              {/* Responsive text size */}
+              <span className="relative z-20 text-sm sm:text-base md:text-lg line-clamp-6 text-white font-normal">
                 {item.testimony}
               </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                {/* add this div for the profile img */}
+              <div className="relative z-20 mt-4 sm:mt-6 flex flex-row items-center">
+                {/* Profile img */}
                 <div className="me-3">
-                  <Image width={50} height={50} src={item?.client_photo?.url ? genrateMainURL(item?.client_photo?.url) : genrateMainURL(item?.client_photo?.url) ||
-                        "/src/assets/tech/reactjs.png"
-                      } alt={item.client_name} className="rounded-full"/>
+                  <Image
+                    width={40}
+                    height={40}
+                    src={
+                      item?.client_photo?.url
+                        ? genrateMainURL(item?.client_photo?.url)
+                        : genrateMainURL(item?.client_photo?.url) ||
+                          "/src/assets/tech/reactjs.png"
+                    }
+                    alt={item.client_name}
+                    className="rounded-full w-8 h-8 sm:w-12 sm:h-12 object-cover"
+                  />
                 </div>
                 <span className="flex flex-col gap-1">
-                  {/* change text color, font-normal to font-bold, text-xl */}
-                  <span className="text-xl font-bold leading-[1.6] text-white">
+                  {/* Responsive name size */}
+                  <span className="text-base sm:text-xl font-bold leading-[1.6] text-white">
                     {item.client_name}
                   </span>
-                  {/* change text color */}
-                  <span className=" text-sm leading-[1.6] text-white-200 font-normal">
+                  <span className="text-xs sm:text-sm leading-[1.6] text-white-200 font-normal">
                     {item.role || "Business Owner"}
                   </span>
                 </span>
@@ -140,6 +143,3 @@ export const InfiniteMovingCards = ({
     </div>
   );
 };
-
-
-

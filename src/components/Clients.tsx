@@ -8,7 +8,7 @@ import { InfiniteMovingCards } from "./ui/InfiniteCards";
 import { useGetTestimonialsQuery } from "@/redux/features/testimonials/testimonialApi";
 import { useGetAPageQuery } from "@/redux/features/pages/pageApi";
 
-const Clients = ({pageData}:any) => {
+const Clients = ({ pageData }: any) => {
   const { data, isFetching: testimonialFetching } = useGetTestimonialsQuery({
     page: "1",
     pageSize: "6",
@@ -21,7 +21,10 @@ const Clients = ({pageData}:any) => {
     <section id="testimonials" className="py-20">
       <h2 className="heading">
         {sectionInfo?.heading}
-        <span className="text-purple"> {sectionInfo?.heading_secondaryColor}</span>
+        <span className="text-purple">
+          {" "}
+          {sectionInfo?.heading_secondaryColor}
+        </span>
       </h2>
 
       <div className="flex flex-col items-center mt-10">

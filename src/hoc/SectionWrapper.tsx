@@ -11,14 +11,14 @@ interface SectionWrapperProps {
 }
 
 const SectionWrapper = ({ children, idName }: SectionWrapperProps) => {
-    return (
-      <>
+  return (
+    <>
       <motion.section
         variants={staggerContainer()} // Ensure this function returns a valid object
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
-        className={` mx-auto relative z-0`}
+        className={`mx-auto relative z-0 px-3 sm:px-5 md:px-10 lg:px-16 py-8 sm:py-12 md:py-16 lg:py-20 w-full`}
       >
         <span className="hash-span" id={idName}>
           &nbsp;
@@ -26,9 +26,8 @@ const SectionWrapper = ({ children, idName }: SectionWrapperProps) => {
 
         {children}
       </motion.section>
-      </>
-    );
+    </>
+  );
 };
-
 
 export default SectionWrapper;
