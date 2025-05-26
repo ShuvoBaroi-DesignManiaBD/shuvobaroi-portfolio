@@ -14,7 +14,9 @@ const CanvasRevealEffect = dynamic(() => import("./ui/CanvasRevealEffect").then(
 const Approach = ({pageData}:any) => {
   // const {data,isFetching} = useGetAPageQuery({pageName:"home"});
   
-  const section = pageData[0]?.section[5];
+  const section =  pageData[0]?.section.find(
+    (item: any) => item.section_name?.includes("Approach") && item
+  ) || {};
   console.log(section);
   
   const approachData = section?.my_approaches;

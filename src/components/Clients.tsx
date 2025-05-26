@@ -16,7 +16,9 @@ const Clients = ({ pageData }: any) => {
   const testimonials = data?.data || [];
 
   // const {data:pageData,isFetching} = useGetAPageQuery({pageName:"home"});
-  const sectionInfo = pageData[0]?.section[4];
+  const sectionInfo = pageData[0]?.section.find(
+    (item: any) => item.section_name?.includes("Testimonials") && item
+  ) || {};;
   return (
     <section id="testimonials" className="py-20">
       <h2 className="heading">

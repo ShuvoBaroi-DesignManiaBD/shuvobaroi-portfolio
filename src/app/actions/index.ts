@@ -40,7 +40,7 @@ async function sendEmail({
 
     // Send the email
     const emailData = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>',
+      from: 'Shuvo Baroi <onboarding@resend.dev>',
       to: clientMail,
       subject: subject,
       html: message,

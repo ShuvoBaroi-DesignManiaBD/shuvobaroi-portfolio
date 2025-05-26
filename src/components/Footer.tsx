@@ -13,7 +13,7 @@ const Footer = ({siteInfo}:{siteInfo:any}) => {
   console.log(footerData?.heading?.split("your").reduce((curr: string,acc: any[]) => curr === "your" ? acc.join("<span className='text-purple'>your</span>") : acc + curr, ""));
   
   return (
-    <footer className="max-w-screen-xl mx-auto pt-20 pb-10 z-0 overflow-hidden relative" id="contact">
+    <footer className="max-w-screen-xl mx-auto px-5 pt-20 pb-10 z-0 overflow-hidden relative" id="contact">
       {/* background grid */}
       <div className="w-full absolute left-0 bottom-0 h-full  z-0">
         <Image
@@ -43,7 +43,7 @@ const Footer = ({siteInfo}:{siteInfo:any}) => {
         </a>
       </div>
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
-        <p className="md:text-base text-sm md:font-normal font-light">
+        <p className="md:text-base text-sm md:font-normal font-light pb-5">
           Copyright © 2024 Shuvo Baroi
         </p>
 

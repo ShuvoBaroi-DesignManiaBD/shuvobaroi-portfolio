@@ -22,7 +22,7 @@ function Hero({ pageData }: any) {
 
   // },[data])
   return (
-    <div className="pb-20 pt-36 relative w-full">
+    <div className="sm:pb-20 pt-36 relative w-full">
       {/**
        *  UI: Spotlights
        *  Link: https://ui.aceternity.com/components/spotlight

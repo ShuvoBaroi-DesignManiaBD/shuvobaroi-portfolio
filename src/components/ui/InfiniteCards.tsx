@@ -86,8 +86,8 @@ export const InfiniteMovingCards = ({
         ref={scrollerRef}
         className={cn(
           // Use grid for mobile, flex for md+
-          "grid grid-cols-2 gap-4 sm:flex sm:flex-nowrap sm:min-w-full sm:shrink-0 sm:gap-10 py-4",
-          start && "animate-scroll ",
+          "grid grid-cols-1 gap-4 sm:flex sm:flex-nowrap sm:min-w-full sm:shrink-0 sm:gap-10 py-4 mb-5 sm:m-0",
+          start && "sm:animate-scroll ",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
