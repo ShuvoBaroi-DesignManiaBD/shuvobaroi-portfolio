@@ -10,6 +10,8 @@ import { Key } from "react";
 
 const Footer = ({siteInfo}:{siteInfo:any}) => {
   const footerData = siteInfo?.data?.global_sections[1];
+  console.log("formData",footerData);
+  
   console.log(footerData?.heading?.split("your").reduce((curr: string,acc: any[]) => curr === "your" ? acc.join("<span className='text-purple'>your</span>") : acc + curr, ""));
   
   return (
@@ -53,7 +55,7 @@ const Footer = ({siteInfo}:{siteInfo:any}) => {
               key={info.name}
               className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
             >
-              <Link href={info?.link || "#"}>
+              <Link href={info?.name === "Github" ? "https://github.com/ShuvoBaroi-DesignManiaBD" : info?.name === "Twitter" ? "https://x.com/shuvobaroi30" : "https://www.linkedin.com/in/shuvobaroi11812053/"} target="_blank">
               <Image src={envConfig?.baseApi?.split('/api')[0] + info.logo?.url} alt="icons" width={20} height={20} />
               </Link>
             </div>
