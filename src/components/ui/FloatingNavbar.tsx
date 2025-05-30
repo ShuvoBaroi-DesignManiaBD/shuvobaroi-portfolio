@@ -30,7 +30,7 @@ export const FloatingNav = ({
 
   const { scrollYProgress } = useScroll();
 
-  console.log("Global Data", globalData, headerData);
+  console.log("Global Data", globalData, headerData, headerData?.menu?.page);
 
   // set true for the initial state so that nav bar is visible in the hero section
   const [visible, setVisible] = useState(true);
@@ -97,7 +97,7 @@ export const FloatingNav = ({
             {headerData?.menu?.page?.map((navItem: any, idx: number) => (
               <Link
                 key={`link=${idx}`}
-                href={`/${navItem?.slug}` || "#"}
+                href={`/${navItem?.slug ?? "#"}` || "#"}
                 className={cn(
                   "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 !cursor-pointer text-base"
                 )}
@@ -161,7 +161,7 @@ export const FloatingNav = ({
                   {headerData?.menu?.page?.map((navItem: any, idx: number) => (
                     <Link
                       key={`sidebar-link=${idx}`}
-                      href={`/${navItem?.slug}` || "#"}
+                      href={`/${navItem?.slug ?? "#"}` || "#"}
                       className="text-white text-lg font-medium hover:text-purple-400 transition"
                       onClick={() => setSidebarOpen(false)}
                     >
